@@ -1,0 +1,227 @@
+:root {
+    --primary-bg: #1a1a1a;
+    --secondary-bg: #2a2a2a;
+    --accent-color: #00a8ff;
+    --text-color: #ffffff;
+    --control-bg: rgba(0, 0, 0, 0.7);
+    --progress-bg: #4a4a4a;
+    --vr-active: #ff4081;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.player-container {
+    display: flex;
+    height: 100vh;
+    background-color: var(--primary-bg);
+}
+
+.media-container {
+    flex: 1;
+    position: relative;
+    background-color: black;
+    min-height: 300px;
+    overflow: hidden; /* Для VR режима */
+}
+
+.media-player {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+/* Стили для VR режима */
+.media-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--control-bg);
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2; /* Поверх VR canvas */
+}
+
+.media-container:hover .controls {
+    opacity: 1;
+}
+
+.top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.media-info {
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.progress-container {
+    width: 100%;
+    height: 5px;
+    background: var(--progress-bg);
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.progress {
+    position: absolute;
+    height: 100%;
+    background-color: var(--accent-color);
+    width: 0;
+}
+
+.bottom-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control-button {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.control-button:hover {
+    color: var(--accent-color);
+}
+
+/* Стили для кнопки VR */
+#vrMode {
+    font-weight: bold;
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-right: 10px;
+}
+
+#vrMode:hover {
+    border-color: var(--accent-color);
+}
+
+#vrMode.active {
+    background-color: var(--vr-active);
+    border-color: var(--vr-active);
+    color: white;
+}
+
+.volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="range"] {
+    width: 100px;
+    height: 4px;
+    background: var(--progress-bg);
+    border-radius: 2px;
+    appearance: none;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.playlist-container {
+    width: 300px;
+    background-color: var(--secondary-bg);
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.playlist-container h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.playlist {
+    list-style: none;
+}
+
+.playlist li {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: var(--primary-bg);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.playlist li:hover {
+    background-color: var(--accent-color);
+}
+
+.playlist li.active {
+    background-color: var(--accent-color);
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .player-container {
+        flex-direction: column;
+    }
+    
+    .playlist-container {
+        width: 100%;
+        max-height: 200px;
+    }
+
+    .volume-controls {
+        display: none; /* Скрываем регулятор громкости на мобильных */
+    }
+}
+
+/* Стили для полноэкранного режима */
+.media-container:fullscreen {
+    width: 100vw;
+    height: 100vh;
+}
+
+.media-container:fullscreen .media-player,
+.media-container:fullscreen canvas {
+    width: 100vw;
+    height: 100vh;
+}

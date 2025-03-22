@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';">
+    <title>Tempo Media Player</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Импортируем Three.js как ES модуль -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./node_modules/three/build/three.module.js"
+        }
+    }
+    </script>
+    <!-- Добавляем тип module для поддержки ES модулей -->
+    <script type="module" src="js/app.js"></script>
+</head>
+<body>
+    <div class="player-container">
+        <div class="media-container">
+            <video id="mediaPlayer" class="media-player" crossorigin="anonymous">
+                <p>Ваш браузер не поддерживает HTML5 видео.</p>
+            </video>
+            
+            <div class="controls">
+                <div class="top-controls">
+                    <button id="openFile" class="control-button">
+                        <span>Открыть файл</span>
+                    </button>
+                    <div class="media-info">
+                        <span id="currentFile">Нет файла</span>
+                        <span id="duration">00:00 / 00:00</span>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progress" class="progress"></div>
+                    </div>
+                </div>
+
+                <div class="bottom-controls">
+                    <div class="left-controls">
+                        <button id="playPause" class="control-button">
+                            <span>▶</span>
+                        </button>
+                        <button id="stop" class="control-button">
+                            <span>⬛</span>
+                        </button>
+                    </div>
+
+                    <div class="volume-controls">
+                        <button id="mute" class="control-button">
+                            <span>🔊</span>
+                        </button>
+                        <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
+                    </div>
+
+                    <div class="right-controls">
+                        <button id="vrMode" class="control-button" style="display: none;">
+                            <span>VR</span>
+                        </button>
+                        <button id="fullscreen" class="control-button">
+                            <span>⛶</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="playlist-container">
+            <h3>Плейлист</h3>
+            <ul id="playlist" class="playlist">
+                <!-- Плейлист будет заполняться динамически -->
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
